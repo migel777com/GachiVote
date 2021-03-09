@@ -3,6 +3,9 @@ package kz.edu.controller;
 import kz.edu.dao.UserDAO;
 import kz.edu.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,8 +31,15 @@ public class Controller2
         return "home";
     }
     @GetMapping("/profile")
-    public String profile()
+    public String profile(Model model)
     {
+        String currentUserName = null;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            currentUserName = authentication.getName();
+        }
+        User user = userDAO.findByUserName(currentUserName);
+        model.addAttribute("user", user);
         return "profile";
     }
     @GetMapping("/login")

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Question</title>
+</head>
+<body>
+    <form th:method="DELETE" th:action="@{/questions/{id}(id=${question.getQuestion_id()})}" th:object="${question}">
+        <label>Delete a Question: </label>
+        <br/>
+        <input type="text" th:field="*{question_title}" id="title" />
+        <br/>
+        <input type="text" th:field="*{question_id}" id="id" />
+        <br/>
+        <input type="submit" value="Delete" />
+    </form>
+    <a th:href="@{/questions}">Books</a>
+</body>
+</html>

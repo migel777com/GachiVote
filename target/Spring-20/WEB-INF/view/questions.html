@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-Questions page
+<a href="/home">Home</a>
+<div th:each="question:${questionList}" style="margin: auto; width: 30%; border: 3px solid green; padding: 10px;">
+    <table style="border-collapse: collapse; border: 1px solid black; width: 100%" id=${question.getQuestion_id()}/>
+        <tr>
+            <td>
+                <input style="width: 100%" type="hidden" name="question_id" value=${question.getQuestion_id()} />&nbsp;&nbsp;
+                <a th:href="@{/questions/{id}(id=${question.getQuestion_id()})}">Open Question</a>&nbsp;&nbsp;
+                <a th:href="@{/questions/delete/{id}(id=${question.getQuestion_id()})}">Delete Question</a>&nbsp;&nbsp;
+                <a th:href="@{/questions/edit/{id}(id=${question.getQuestion_id()})}">Edit Question</a>&nbsp;&nbsp;
+            </td>
+        </tr>
+        <tr><td><input style="width: 80%" type="text" name="question_title" placeholder="Question Title" th:value="${question.getQuestion_title()}" /></td></tr>
+    </table>
+    <br>
+    <a th:href="@{/questions/new}">Add A New Question</a>
+</div>
 </body>
 </html>

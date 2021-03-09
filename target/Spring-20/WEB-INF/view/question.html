@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-Page of single question
+    <p th:text="${question.getQuestion_title()}">Title</p>
+    <p th:text="${question.getAnswer_one()}">Ans1</p>
+    <form th:method="PATCH" th:action="@{/questions/1/{id}(id=${question.getQuestion_id()})}" th:object="${question}">
+        <input type="submit" value="Vote" />
+    </form>
+    <p th:text="${question.getAnswer_one_count()}">Count1</p>
+    <p th:text="${question.getAnswer_two()}">Ans2</p>
+    <form th:method="PATCH" th:action="@{/questions/2/{id}(id=${question.getQuestion_id()})}" th:object="${question}">
+        <input type="submit" value="Vote" />
+    </form>
+    <p th:text="${question.getAnswer_two_count()}">Count2</p>
+    <p th:text="${question.getAnswer_three()}">Ans3</p>
+    <form th:method="PATCH" th:action="@{/questions/3/{id}(id=${question.getQuestion_id()})}" th:object="${question}">
+        <input type="submit" value="Vote" />
+    </form>
+    <p th:text="${question.getAnswer_three_count()}">Count3</p>
+    <p th:text="${question.getAnswer_four()}">Ans4</p>
+    <form th:method="PATCH" th:action="@{/questions/4/{id}(id=${question.getQuestion_id()})}" th:object="${question}">
+        <input type="submit" value="Vote" />
+    </form>
+    <p th:text="${question.getAnswer_four_count()}">Count4</p>
+    <p th:text="${question.getAnswered()}">People</p>
+    <a th:href="@{/questions}">Questions</a>
 </body>
 </html>
