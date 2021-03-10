@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -141,13 +142,20 @@ public class QuestionDAO {
         }
     }
 
-    public void vote(int id, int option)
+    public void vote(int id, int option, int user)
     {
         try
         {
             session = sessionFactory.openSession();
             session.beginTransaction();
             Question question = session.find(Question.class, id);
+
+            if (question.getAnswered().equals("")) {
+                question.setAnswered(question.getAnswered()+user);
+            }else {
+                question.setAnswered(question.getAnswered()+","+user);
+            }
+
 
             switch (option) {
                 case 1: {
@@ -168,6 +176,7 @@ public class QuestionDAO {
                 }
             }
 
+
             session.merge(question);
             session.getTransaction().commit();
         }
@@ -176,4 +185,5 @@ public class QuestionDAO {
             session.close();
         }
     }
+
 }
