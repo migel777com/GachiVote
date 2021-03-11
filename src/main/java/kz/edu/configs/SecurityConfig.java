@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,13 +32,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     {
         security.authorizeRequests()
                 .antMatchers("/", "/registration").permitAll()
-                .antMatchers("/books").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/books/**").hasRole("ADMIN")
                 .antMatchers("/questions").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/questions/{id}").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/questions/**").hasRole("ADMIN")
                 .antMatchers("/profile").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/arrivals").hasAuthority("edit")
+                .antMatchers(HttpMethod.GET).permitAll()
+                .antMatchers(HttpMethod.POST).permitAll()
             .and()
                 //.formLogin().permitAll()
                 .formLogin().loginPage("/login").permitAll()
