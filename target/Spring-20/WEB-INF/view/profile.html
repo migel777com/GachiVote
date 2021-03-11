@@ -3,20 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
+    <style type="text/css">
+        .menu{
+            display: grid;
+            width: 100%;
+            align-content: center;
+            background-color: #E5E8FB;
+            grid-template-columns: auto auto auto auto;
+            grid-gap: 5%;
+        }
+        .menu div{
+            background-color: #9AA4EC;
+            padding: 0 15% 0;
+            justify-self: center;
+            font-size: 25pt;
+            text-align: center;
+        }
+        .menu a{
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
 </head>
-<body>
-    <h1>User Profile</h1>
-    <a href="/logout">Log Out</a>
-    <br>
-    <a href="/books" >Books</a>
-    <br>
-    <a href="/login">Sign In</a>
-    <br>
-    <a href="/registration">Sign Up</a>
-    <br>
-    <a href="/profile">Profile</a>
-    <br>
-    <a href="/arrivals">Arrivals</a>
-    <p th:text="${user.getEmail()}">Email</p>
+<body style="background-color: #4A919E;margin: 0px;">
+<div th:if="${user.getRole().getId()==1}" style="display: flex;flex-direction: column;justify-content: center;">
+    <h1>Admin Profile</h1>
+    <div class="menu">
+        <div th:each="user:${userlist}" style="margin: auto; width: 50%; border: 5px solid #212E53; padding: 10px;">
+            <table style="border-collapse: collapse; border: 2px solid black; width: 100%" id=${question.getQuestion_id()}/>
+                <tr>
+                    <td>
+                        <a th:href="@{/profile/delete/{id}(id=${user.getId()})}">Delete user</a><br>
+                        <a th:href="@{/profile/edit/{id}(id=${user.getId()})}">Edit user</a><br>
+                    </td>
+                </tr>
+                <tr><td><input style="width: 80%" type="text" name="email" placeholder="User email" th:value="${user.getEmail()}" /></td></tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div th:if="${user.getRole().getId()==2}" style="display: flex;flex-direction: column;justify-content: center;">
+    <h1>User Profile</h1><br>
+    <table style="border: 3px solid black;border-collapse: collapse;background-color: RGBA(74,145,158,0.5);">
+        <tr>
+            <td>Email: </td><td><span th:text="${user.getEmail()}"></span></td>
+        </tr>
+        <tr>
+            <td>First name: </td><td><span th:text="${user.getFirst_name()}"></span></td>
+        </tr>
+        <tr>
+            <td>Second name: </td><td><span th:text="${user.getSecond_name()}"></span></td>
+        </tr>
+        <tr>
+            <td>Group name: </td><td><span th:text="${user.getGroup_name()}"></span></td>
+        </tr>
+        <tr>
+            <td>Age: </td><td><span th:text="${user.getAge()}"></span></td>
+        </tr>
+        <tr>
+            <td>Interest: </td><td><span th:text="${user.getInterest()}"></span></td>
+        </tr>
+        <tr>
+            <td><a th:href="@{/profile/edit/{id}(id=${user.getId()})}">Edit user</a></td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>

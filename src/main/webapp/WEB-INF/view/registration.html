@@ -8,8 +8,13 @@
 <h1>Sign Up</h1>
 <p th:text="${message}">message</p>
 <form action="/registration" method="post">
-    <div><label> User Name : <input type="text" name="username"/><br><br></label></div>
+    <div><label> Email : <input type="text" name="username"/><br><br></label></div>
     <div><label> Password: <input type="password" name="password"/><br><br></label></div>
+    <div><label> First name: <input type="text" name="fname"/><br><br></label></div>
+    <div><label> Second name: <input type="text" name="sname"/><br><br></label></div>
+    <div><label> Group name: <input type="text" name="gname"/><br><br></label></div>
+    <div><label> Age: <input type="number" name="age"/><br><br></label></div>
+    <div><label> Interest: <input type="text" name="interest"/><br><br></label></div>
     <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
     <div><input type="submit" value="Sign Up"/></div>
 </form>

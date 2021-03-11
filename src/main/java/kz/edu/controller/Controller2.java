@@ -9,10 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class Controller2
@@ -40,7 +37,21 @@ public class Controller2
         }
         User user = userDAO.findByUserName(currentUserName);
         model.addAttribute("user", user);
+        model.addAttribute("userlist", userDAO.getUserList());
         return "profile";
+    }
+    @GetMapping("/profile/edit/{id}")
+    public String updateUser(@PathVariable("id") int id, Model model)
+    {
+        model.addAttribute("user", userDAO.findByUserId(id));
+        return "edit-user";
+    }
+    @PatchMapping("/profile/{id}")
+    public String updateUserPatch(@ModelAttribute("user") User user, @PathVariable("id") int id)
+    {
+        long role = userDAO.findByUserId(id).getRole().getId();
+        userDAO.updateUser(user, id, role);
+        return "redirect:/profile";
     }
     @GetMapping("/login")
     public String login()
@@ -53,7 +64,7 @@ public class Controller2
         return "registration";
     }
     @PostMapping("/registration")
-    public String addUser(User user, @RequestParam("username") String email, Model model)
+    public String addUser(User user, @RequestParam("username") String email,@RequestParam("fname") String fname,@RequestParam("sname") String sname,@RequestParam("gname") String gname,@RequestParam("age") int age,@RequestParam("interest") String interest, Model model)
     {
         System.out.println("REGISTRATION:"+email);
 
@@ -65,9 +76,27 @@ public class Controller2
         else
         {
             user.setEmail(email);
+            user.setFirst_name(fname);
+            user.setSecond_name(sname);
+            user.setGroup_name(gname);
+            user.setAge(age);
+            user.setInterest(interest);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userDAO.addUser(user);
             return "redirect:/login";
         }
+    }
+
+    @GetMapping("/profile/delete/{id}")
+    public String deleteUser(@PathVariable("id") int id, Model model)
+    {
+        model.addAttribute("user", userDAO.findByUserId(id));
+        return "delete-user";
+    }
+    @DeleteMapping("/profile/{id}")
+    public String deleteUserPatch(@PathVariable("id") int id)
+    {
+        userDAO.deleteUser(id);
+        return "redirect:/home";
     }
 }

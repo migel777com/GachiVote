@@ -3,23 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style type="text/css">
+        #menu{
+            width: 100%;
+            background-color: RGBA(229,232,251,0.3);
+        }
+        #menu div{
+            background-color: #9AA4EC;
+            padding: 2%;
+            justify-self: center;
+            font-size: 23pt;
+            text-align: center;
+        }
+        a{
+            text-decoration: none;
+            font-weight: bold;
+            color:#551A8B;
+        }
+    </style>
 </head>
-<body>
-<a href="/home">Home</a>
-<div th:each="question:${questionList}" style="margin: auto; width: 30%; border: 3px solid green; padding: 10px;">
-    <table style="border-collapse: collapse; border: 1px solid black; width: 100%" id=${question.getQuestion_id()}/>
-        <tr>
-            <td>
-                <input style="width: 100%" type="hidden" name="question_id" value=${question.getQuestion_id()} />&nbsp;&nbsp;
-                <a th:href="@{/questions/{id}(id=${question.getQuestion_id()})}">Open Question</a>&nbsp;&nbsp;
-                <a th:href="@{/questions/delete/{id}(id=${question.getQuestion_id()})}">Delete Question</a>&nbsp;&nbsp;
-                <a th:href="@{/questions/edit/{id}(id=${question.getQuestion_id()})}">Edit Question</a>&nbsp;&nbsp;
-            </td>
-        </tr>
-        <tr><td><input style="width: 80%" type="text" name="question_title" placeholder="Question Title" th:value="${question.getQuestion_title()}" /></td></tr>
-    </table>
-    <br>
-    <a th:href="@{/questions/new}">Add A New Question</a>
+<body style=" background-image: url('https://thumbs.gfycat.com/ExhaustedCoarseImperialeagle-max-1mb.gif');
+    background-size: cover;
+    height: 100%;
+    padding:0;
+    margin:0;">
+<h1><a style="text-align: center;background-color: RGBA(74,145,158,0.5)" href="/home">Home</a></h1>
+<div id="menu">
+    <div th:each="question:${questionList}" style="margin: auto; width: 50%; border: 5px solid #212E53; padding: 10px;">
+        <table style="border-collapse: collapse; border: 2px solid black; width: 100%" id=${question.getQuestion_id()}/>
+                <tr>
+                    <td>
+                        <a th:href="@{/questions/{id}(id=${question.getQuestion_id()})}">Open question</a><br>
+                        <a th:if="${user.getRole().getId()==1}" th:href="@{/questions/delete/{id}(id=${question.getQuestion_id()})}">Delete question</a><br>
+                        <a th:if="${user.getRole().getId()==1}" th:href="@{/questions/edit/{id}(id=${question.getQuestion_id()})}">Edit question</a><br>
+                    </td>
+                </tr>
+                <tr><td><input style="width: 80%" type="text" name="question_title" placeholder="Question Title" th:value="${question.getQuestion_title()}" /></td></tr>
+            </table>
+    </div>
+        <br>
+        <h1 style="font-weight: bold;font-size: 20pt;text-align: center;"><a th:href="@{/questions/new}">Add a new question</a></h1>
 </div>
 </body>
 </html>

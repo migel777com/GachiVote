@@ -3,30 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style type="text/css">
+        #menu{
+            display: grid;
+            width: 100em;
+            align-content: center;
+            background-color: #E5E8FB;
+            grid-template-columns: auto auto auto auto auto;
+            grid-gap: 5%;
+        }
+        #menu div{
+            background-color: #9AA4EC;
+            padding: 2%;
+            justify-self: center;
+            font-size: 23pt;
+            text-align: center;
+        }
+        #menu a{
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .someClass{
+
+        }
+    </style>
 </head>
-<body>
-    <p th:text="${question.getQuestion_title()}">Title</p>
-    <p th:text="${question.getAnswer_one()}">Ans1</p>
-    <form th:method="PATCH" th:action="@{/questions/1/{id}(id=${question.getQuestion_id()})}" th:object="${question}">
-        <input type="submit" value="Vote" />
-    </form>
-    <p th:text="${question.getAnswer_one_count()}">Count1</p>
-    <p th:text="${question.getAnswer_two()}">Ans2</p>
-    <form th:method="PATCH" th:action="@{/questions/2/{id}(id=${question.getQuestion_id()})}" th:object="${question}">
-        <input type="submit" value="Vote" />
-    </form>
-    <p th:text="${question.getAnswer_two_count()}">Count2</p>
-    <p th:text="${question.getAnswer_three()}">Ans3</p>
-    <form th:method="PATCH" th:action="@{/questions/3/{id}(id=${question.getQuestion_id()})}" th:object="${question}">
-        <input type="submit" value="Vote" />
-    </form>
-    <p th:text="${question.getAnswer_three_count()}">Count3</p>
-    <p th:text="${question.getAnswer_four()}">Ans4</p>
-    <form th:method="PATCH" th:action="@{/questions/4/{id}(id=${question.getQuestion_id()})}" th:object="${question}">
-        <input type="submit" value="Vote" />
-    </form>
-    <p th:text="${question.getAnswer_four_count()}">Count4</p>
-    <p th:text="${question.getAnswered()}">People</p>
-    <a th:href="@{/questions}">Questions</a>
+<body style=" background-image: url('http://25.media.tumblr.com/tumblr_ly7xldTsiV1qj8uf6o1_500.gif');
+    background-size: cover;
+    height: 100%;
+    padding:0;
+    margin:0;">
+<div style="display: none;" name="f" th:each="tmp : ${answered}">
+    <span th:text="${question.question_id}">2</span>
+    <div name="s" th:if="${tmp}==${question.question_id}">
+        <span style="display: none;" id="bruh" th:text=1>1</span>
+    </div>
+</div>
+<h1><a th:href="@{/questions}">Back to questions</a></h1>
+    <h2 style="text-align: center;">Question title:</h2>
+    <h1 style="text-align: center;" th:text="${question.getQuestion_title()}">Title</h1>
+<div style="display: flex;flex-direction:column;width: 100%;justify-content: center;">
+    <table style="border: 3px solid black;border-collapse: collapse;background-color: RGBA(74,145,158,0.5);">
+        <tr>
+            <td><h2>First option: </h2><span th:text="${question.getAnswer_one()}">Ans1</span></td><td><form th:method="PATCH" th:action="@{/questions/1/{id}(id=${question.getQuestion_id()})}" th:object="${question}">
+            <input class="someClass" type="submit" value="Vote"/>
+        </form></td><td><h2>Number of votes: </h2><span th:text="${question.getAnswer_one_count()}">Count1</span></td>
+        </tr>
+        <tr>
+            <td><h2>Second option: </h2><span th:text="${question.getAnswer_two()}">Ans2</span></td><td><form th:method="PATCH" th:action="@{/questions/2/{id}(id=${question.getQuestion_id()})}" th:object="${question}">
+            <input class="someClass" type="submit" value="Vote"/>
+        </form></td><td><h2>Number of votes: </h2><span th:text="${question.getAnswer_two_count()}">Count2</span></td>
+        </tr>
+        <td><h2>Third option: </h2><span th:text="${question.getAnswer_three()}">Ans3</span></td><td><form th:method="PATCH" th:action="@{/questions/3/{id}(id=${question.getQuestion_id()})}" th:object="${question}">
+        <input class="someClass" type="submit" value="Vote"/>
+    </form></td><td><h2>Number of votes: </h2><span th:text="${question.getAnswer_three_count()}">Count3</span></td>
+        <tr>
+            <td><h2>Fourth option: </h2><span th:text="${question.getAnswer_four()}">Ans4</span></td><td><form th:method="PATCH" th:action="@{/questions/4/{id}(id=${question.getQuestion_id()})}" th:object="${question}">
+            <input class="someClass" type="submit" value="Vote"/>
+        </form></td><td><h2>Number of votes: </h2><span th:text="${question.getAnswer_four_count()}">Count4</span></td>
+        </tr>
+    </table>
+    <h2 th:if="${user.getRole().getId()==1}" style="text-align: center;">Who voted:</h2>
+    <p th:if="${user.getRole().getId()==1}" style="text-align: center;font-size: 20pt;" th:text="${question.getAnswered()}">People</p>
+</div>
+    <script>
+        var tmp;
+        var all = document.getElementsByClassName('someClass');
+        tmp=document.getElementById("bruh").innerHTML;
+        if ((tmp==1)||(tmp=="1")){
+            for (var i = 0; i < all.length; i++) {
+                all[i].style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>

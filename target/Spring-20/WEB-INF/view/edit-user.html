@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+<title>Title</title>
+</head>
+<body style=" background-image: url('https://thumbs.gfycat.com/InsidiousDenseAnole-max-1mb.gif');
+    background-size: cover;
+    height: 100%;
+    padding:0;
+    margin:0;">
+<form th:method="PATCH" th:action="@{/profile/{id}(id=${user.getId()})}" th:object="${user}">
+    <table style="border: 3px solid black;border-collapse: collapse;background-color: RGBA(74,145,158,0.5);">
+        <tr>
+            <td>Email: </td><td><input type="text" th:field="*{email}" id="email" /></td>
+        </tr>
+        <tr>
+            <td>First name: </td><td><input type="text" th:field="*{first_name}" id="fname" /></td>
+        </tr>
+        <tr style="display: none;">
+            <td>Password: </td><td><input type="text" th:field="*{password}" id="password" /></td>
+        </tr>
+        <tr>
+            <td>Second name: </td><td><input type="text" th:field="*{second_name}" id="sname" /></td>
+        </tr>
+        <tr>
+            <td>Group name: </td><td><input type="text" th:field="*{group_name}" id="gname" /></td>
+        </tr>
+        <tr>
+            <td>Age: </td><td><input type="text" th:field="*{age}" id="age" /></td>
+        </tr>
+        <tr>
+            <td>Interest: </td><td><input type="text" th:field="*{interest}" id="interest" /></td>
+        </tr>
+
+    </table>
+    <h1 style="text-align: center;"><input type="submit" value="Update" /></h1>
+</form>
+<a th:href="@{/profile}">Profile</a>
+</body>
+</html>

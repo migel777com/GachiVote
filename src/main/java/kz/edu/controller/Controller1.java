@@ -34,14 +34,15 @@ public class Controller1 {
     public String helloPage(Model model) throws InterruptedException {
         model.addAttribute("questionList", questionDAO.getQuestionList());
 
-        if (!executed) {
+
             String currentUserName = null;
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (!(authentication instanceof AnonymousAuthenticationToken)) {
                 currentUserName = authentication.getName();
             }
             User user = userDAO.findByUserName(currentUserName);
-
+            model.addAttribute("user",user);
+        if (!executed) {
             List<Question> list = questionDAO.getQuestionList();
 
             First fnew = new First();
@@ -62,6 +63,13 @@ public class Controller1 {
 
     @GetMapping("/{id}")
     public String question(@PathVariable("id") int id, Model model){
+        String currentUserName = null;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            currentUserName = authentication.getName();
+        }
+        User user = userDAO.findByUserName(currentUserName);
+        model.addAttribute("user",user);
         model.addAttribute("question", questionDAO.getQuestion(id));
 
         System.out.println(answered);

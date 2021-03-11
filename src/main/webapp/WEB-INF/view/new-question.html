@@ -3,32 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>New Question</title>
+    <style type="text/css">
+        input{
+            background-color: RGBA(74,145,158,0.2);
+            border-radius: 5px;
+            text-align: center;
+        }
+        a{
+            text-decoration: none;
+            font-weight: bold;
+            color:#551A8B;
+        }
+    </style>
 </head>
-<body>
-<h1>Add new question</h1>
+<body style=" background-image: url('https://i.gifer.com/Fq.gif');
+    background-size: cover;
+    height: 100%;
+    padding:0;
+    margin:0;">
+<h1 style="background-color: RGBA(74,145,158,0.5);"><a th:href="@{/questions}">Back to questions</a></h1>
+<h1 style="text-align: center;">Add new question</h1>
+<div style="display: flex;flex-direction:column;width: 100%;justify-content: center;">
     <form th:method="post" th:action="@{/questions}" th:object="${question}">
-        <input type="text" th:field="*{question_title}" id="title" />
-        <br/>
-        <input type="text" th:field="*{answer_one}" id="ans1" />
-        <br/>
-        <input type="number" th:field="*{answer_one_count}" id="count1" value="0" hidden/>
-        <br/>
-        <input type="text" th:field="*{answer_two}" id="ans2" />
-        <br/>
-        <input type="number" th:field="*{answer_two_count}" id="count2" value="0" hidden/>
-        <br/>
-        <input type="text" th:field="*{answer_three}" id="ans3" />
-        <br/>
-        <input type="number" th:field="*{answer_three_count}" id="count3" value="0" hidden/>
-        <br/>
-        <input type="text" th:field="*{answer_four}" id="ans4" />
-        <br/>
-        <input type="number" th:field="*{answer_four_count}" id="count4" value="0" hidden/>
-        <br/>
-        <input type="text" th:field="*{answered}" id="answered" />
-        <br/>
-        <input type="submit" value="Add" />
+        <table style="border-collapse: collapse;text-align: center;background-color: RGBA(229,232,251,0.3); border: 2px solid black; width: 100%">
+            <tr>
+                <td>Question title: </td><td><input type="text" th:field="*{question_title}" id="title" /></td>
+            </tr>
+            <tr>
+                <td>First option: </td><td><input type="text" th:field="*{answer_one}" id="ans1" /></td>
+            </tr>
+            <tr>
+                <td>Second option: </td><td><input type="text" th:field="*{answer_two}" id="ans2" /></td>
+            </tr>
+            <tr>
+                <td>Third option: </td><td><input type="text" th:field="*{answer_three}" id="ans3" /></td>
+            </tr>
+            <tr>
+                <td>Fourth option: </td><td><input type="text" th:field="*{answer_four}" id="ans4" /></td>
+            </tr>
+        </table>
+        <input style="display: none;" type="number" th:field="*{answer_one_count}" id="count1" value="0" hidden/>
+        <input style="display: none;" type="number" th:field="*{answer_two_count}" id="count2" value="0" hidden/>
+        <input style="display: none;" type="number" th:field="*{answer_three_count}" id="count3" value="0" hidden/>
+        <input style="display: none;" type="number" th:field="*{answer_four_count}" id="count4" value="0" hidden/>
+        <input style="display: none;" type="text" th:field="*{answered}" id="answered" />
+        <h1 style="text-align: center;"><input type="submit" value="Add" /></h1>
     </form>
-    <a th:href="@{/questions}">Questions</a>
+</div>
 </body>
 </html>

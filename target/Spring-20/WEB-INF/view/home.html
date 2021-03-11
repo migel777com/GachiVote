@@ -1,14 +1,48 @@
-<html>
-<body>
-    <h1>Home</h1>
-    <a href="/logout">Log Out</a>
-    <br>
-    <a href="/login">Sign In</a>
-    <br>
-    <a href="/registration">Sign Up</a>
-    <br>
-    <a href="/profile">Profile</a>
-    <br>
-    <a href="/questions">Questions</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <style type="text/css">
+        #menu{
+            display: grid;
+            width: 100vw;
+            align-content: center;
+            background-color: RGBA(229,232,251,0.2);
+            grid-template-columns: auto auto auto auto auto;
+            grid-gap: 5%;
+        }
+        #menu div{
+            background-color: RGBA(154,164,236,0.4);
+            height: 70vh;
+            padding: 0 15% 0;
+            justify-self: center;
+            font-size: 25pt;
+            text-align: center;
+            background-size: cover;
+            transition-duration: 5s;
+            -webkit-animation: switch normal both 5s ease-in-out;
+            animation: switch normal both 5s ease-in-out;
+            background-image: url("https://upload.wikimedia.org/wikipedia/commons/4/48/BLANK_ICON.png");
+        }
+        #menu div:hover {
+            background-image: url('https://media.tenor.com/images/7999eeac135a5b6425f0c05a7a0a61b3/tenor.gif');
+        }
+        #menu a{
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body style=" background-image: url('https://thumbs.gfycat.com/AfraidTenderFinnishspitz-size_restricted.gif');
+    background-size: cover;
+    height: 100%;
+    padding:0;
+    margin:0;">
+<h1 style="text-align: center;">Home</h1>
+<div id="menu">
+    <div><a href="/logout">Log Out</a></div>
+    <div><a href="/login">Sign In</a></div>
+    <div><a href="/profile">Profile</a></div>
+    <div><a href="/questions">Questions</a></div>
+</div>
 </body>
-</html>
